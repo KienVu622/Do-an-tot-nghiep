@@ -1,0 +1,71 @@
+﻿@model IEnumerable<QLBQA.Models.Role>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.RoleID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.RoleID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.RoleID })
+            </td>
+        </tr>
+    }
+
+    </table>*@
+
+<table class="table">
+    <tr>
+        <th>
+            Role Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.RoleID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.RoleID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.RoleID })
+            </td>
+        </tr>
+    }
+</table>
+
