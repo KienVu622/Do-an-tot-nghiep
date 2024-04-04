@@ -46,7 +46,7 @@ namespace QLBQA.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RoleID,RoleName,Description")] Role role)
+        public ActionResult Create([Bind(Include = "RoleID, RoleName,Description")] Role role)
         {
             if (ModelState.IsValid)
             {
@@ -57,6 +57,7 @@ namespace QLBQA.Areas.Admin.Controllers
 
             return View(role);
         }
+
 
         // GET: Admin/Roles/Edit/5
         public ActionResult Edit(int? id)

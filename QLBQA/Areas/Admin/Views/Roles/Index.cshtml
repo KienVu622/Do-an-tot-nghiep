@@ -1,71 +1,50 @@
 ﻿@model IEnumerable<QLBQA.Models.Role>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý quyền truy cập";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<h2>Index</h2>
+<h2>Quản lý quyền truy cập</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+
+    <a class="btn btn-secondary btn-tone m-r-5" href="@Url.Action("Create", "Roles")" title="Create">Thêm mới</a>
+    
 </p>
-@*<table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RoleName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Tên quyền</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col">#</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@item.RoleID</th>
+                        <td>@item.RoleName</td>
+                        <td>@item.Description</td>
+                        <td>
+                            <a class="btn btn-primary btn-tone m-r-5" href="@Url.Action("Details", "Roles", new { id = item.RoleID })" title="Details">Chi tiết</a>
+                            <a class="btn btn-warning btn-tone m-r-5" href="@Url.Action("Edit", "Roles", new { id = item.RoleID })" title="Edit">Sửa</a>
+                            <a class="btn btn-danger btn-tone m-r-5" href="@Url.Action("Delete", "Roles", new { id = item.RoleID })" title="Delete">Xóa</a>
 
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.RoleID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.RoleID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.RoleID })
-            </td>
-        </tr>
-    }
 
-    </table>*@
+                        </td>
+                    </tr>
+                }
+            }
 
-<table class="table">
-    <tr>
-        <th>
-            Role Name
-        </th>
-        <th>
-            Description
-        </th>
-        <th></th>
-    </tr>
+        </tbody>
+    </table>
+</div>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.RoleID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.RoleID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.RoleID })
-            </td>
-        </tr>
-    }
-</table>
 

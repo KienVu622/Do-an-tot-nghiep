@@ -26,5 +26,6 @@ namespace QLBQA.Controllers
 
             return View();
         }
+
     }
 }
