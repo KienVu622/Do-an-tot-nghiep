@@ -1,16 +1,14 @@
-﻿@model PagedList.IPagedList<QLBQA.Models.Customer>
+﻿@model PagedList.IPagedList<QLBQA.Models.Product>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Danh sách khách hàng";
+    ViewBag.Title = "Danh sách sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <head>
-    <title>Danh sách khách hàng</title>
-    <!-- Bao gồm thư viện jQuery -->
+    <title>Danh sách sản phẩm</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Bao gồm thư viện jQuery Unobtrusive Ajax -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
 </head>
 
@@ -18,47 +16,45 @@
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
             <a href="@Url.Action("Index", "Home", new { area = "Admin" })" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-            <span class="breadcrumb-item active">Danh sách khách hàng</span>
+            <span class="breadcrumb-item active">Danh sách sản phẩm</span>
         </nav>
     </div>
 </div>
 <div class="card">
     <div class="card-body">
-        @using (Html.BeginForm())
+
+        @*@using (Html.BeginForm())
         {
             <div style="display: flex; /* width: 1500px; */ justify-content: space-between; align-items: center; ">
-                <a class="btn btn-primary" href="@Url.Action("Index", "Customers")" title="Back">Tất cả</a>
+                <a class="btn btn-primary" href="@Url.Action("Index", "Products")" title="Back">Tất cả</a>
                 <p style="display: inline-block; float: right;">
                     @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "Nhập tên...", style = "padding: 5px;" })
                     <input class="btn btn-primary" type="submit" value="Tìm">
                 </p>
             </div>
-
-
-
-
-
-        }
+        }*@
         <div class="row m-b-30">
             <div class="col-lg-8">
                 <div class="d-md-flex">
                     <div class="m-b-10 m-r-15">
-                        @*<select id="roleSelect" class="custom-select" style="min-width: 180px;">
-                            <option value="">Tất cả</option>
-                            @foreach (var role in ViewBag.Roles)
+                        <select id="catSelect" class="custom-select" style="min-width: 180px;">
+                            <option value="">
+                                Tất cả
+                            </option>
+                            @foreach (var cat in ViewBag.Cats)
                             {
-                                <option value="@role.RoleID">@role.RoleName</option>
+                                <option value="@cat.CatID">@cat.CatName</option>
                             }
-                        </select>*@
-
-
-
+                        </select>
                     </div>
 
+
                 </div>
+
             </div>
 
         </div>
+        
         @* Thông bao lỗi *@
         @if (TempData["ErrMsg"] != null)
         {
@@ -91,11 +87,10 @@
                     <tr>
 
                         <th>ID</th>
-                        <th>Họ tên</th>
-                        <th>Email</th>
-                        <th>Điện thoại</th>
-                        @*<th>Lần đăng nhập cuối</th>*@
-                        <th>Ngày sinh</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Danh mục</th>
+                        <th>Giá</th>
+                        <th>Tồn kho</th>
                         <th>Trạng thái</th>
                         <th></th>
                     </tr>
@@ -107,18 +102,19 @@
                         {
                             <tr>
                                 <td>
-                                    @item.CustomerID
+                                    @item.ProductID
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <img class="img-fluid rounded" src="assets/images/others/thumb-9.jpg" style="max-width: 60px" alt="">
-                                        <h6 class="m-b-0 m-l-10">@item.FullName</h6>
+                                        <h6 class="m-b-0 m-l-10">@item.ProductName</h6>
                                     </div>
                                 </td>
-                                <td>@item.Email</td>
-                                <td>@item.Phone</td>
+                                <td>@item.Category.CatName</td>
+                                <td>@item.Price</td>
                                 @*<td>@item.LastLogin</td>*@
-                                <td>@item.Birthday</td>
+                                <td>@item.UnitsInStock</td>
+
                                 <td>
                                     @if (item.Active)
                                     {
@@ -137,9 +133,9 @@
 
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary btn-tone m-r-5" href="@Url.Action("Details", "Customers", new { id = item.CustomerID })" title="Details">Chi tiết</a>
-                                    <a class="btn btn-warning btn-tone m-r-5" href="@Url.Action("Edit", "Customers", new { id = item.CustomerID })" title="Edit">Sửa</a>
-                                    <a class="btn btn-danger btn-tone m-r-5" href="@Url.Action("Delete", "Customers", new { id = item.CustomerID })" title="Delete">Xóa</a>
+                                    <a class="btn btn-primary btn-tone m-r-5" href="@Url.Action("Details", "Products", new { id = item.ProductID })" title="Details">Chi tiết</a>
+                                    <a class="btn btn-warning btn-tone m-r-5" href="@Url.Action("Edit", "Products", new { id = item.ProductID })" title="Edit">Sửa</a>
+                                    <a class="btn btn-danger btn-tone m-r-5" href="@Url.Action("Delete", "Products", new { id = item.ProductID })" title="Delete">Xóa</a>
                                 </td>
                             </tr>
                         }
@@ -156,23 +152,43 @@
 
 <script>
    $(document).ready(function () {
-    $('#roleSelect').change(function () {
-        var roleId = $(this).val();
-        $.ajax({
-            url: '@Url.Action("SelectFollowingRole", "Accounts")',
+       $('#catSelect').change(function () {
+           var catId = $(this).val();
+           if (catId == "") {
+               $.ajax({
+                   url: '@Url.Action("SelectFollowingCat", "Products")',
+                   type: 'GET',
+                   data: { id: catId },
+                   success: function (data) {
+                       $('#accountTable tbody').html(data);
+                       var hidePages = document.getElementById("pages");
+                       hidePages.style.display = "block";
+                   },
+                   error: function () {
+                       alert('Đã xảy ra lỗi, vui lòng thử lại sau.');
+                   }
+               });
+           } else {
+                $.ajax({
+            url: '@Url.Action("SelectFollowingCat", "Products")',
             type: 'GET',
-            data: { id: roleId },
+            data: { id: catId },
             success: function (data) {
                 $('#accountTable tbody').html(data);
+                var hidePages = document.getElementById("pages");
+                hidePages.style.display = "none";
             },
             error: function () {
                 alert('Đã xảy ra lỗi, vui lòng thử lại sau.');
             }
         });
+           }
+
     });
 });
-
 </script>
-Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+<div id="pages">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", "Customers", new { page, currentFilter = ViewBag.CurrentFilter }))     
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Products", new { page, currentFilter = ViewBag.CurrentFilter }))
+</div>

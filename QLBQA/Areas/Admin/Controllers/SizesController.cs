@@ -109,10 +109,19 @@ namespace QLBQA.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Size size = db.Sizes.Find(id);
-            db.Sizes.Remove(size);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Size size = db.Sizes.Find(id);
+                db.Sizes.Remove(size);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrMsg"] = "Không thể xóa kích cỡ này vì tồn tại sản phẩm có kích cỡ này. Hãy xóa sản phẩm đó trước.";
+                return RedirectToAction("Index");
+
+            }
         }
 
         protected override void Dispose(bool disposing)

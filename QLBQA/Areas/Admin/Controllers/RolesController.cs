@@ -110,10 +110,19 @@ namespace QLBQA.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Role role = db.Roles.Find(id);
-            db.Roles.Remove(role);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Role role = db.Roles.Find(id);
+                db.Roles.Remove(role);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrMsg"] = "Không thể xóa quyền này này vì tồn tại tài khoản có quyền này. Hãy xóa tài khoản đó trước.";
+                return RedirectToAction("Index");
+
+            }
         }
 
         protected override void Dispose(bool disposing)

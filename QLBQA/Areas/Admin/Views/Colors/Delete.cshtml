@@ -1,23 +1,31 @@
-﻿@model QLBQA.Models.Size
+﻿@model QLBQA.Models.Color
 
 @{
-    ViewBag.Title = "Xóa kích cỡ";
+    ViewBag.Title = "Xóa màu sắc";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 
 
-<h3>Bạn có chắc muốn xóa kích cỡ này?</h3>
+<h3>Bạn có chắc muốn xóa màu này?</h3>
 <div>
 
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Tên kích cỡ
+            Tên màu
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SizeName)
+            @Html.DisplayFor(model => model.ColorName)
+        </dd>
+
+        <dt>
+            Mã màu
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ColorCode)
         </dd>
 
         <dt>
@@ -35,7 +43,7 @@
 
 <div class="form-actions no-color">
     <input class="btn btn-primary m-r-5" type="submit" value="Xóa" />
-    <a class="btn btn-danger m-r-5" href="@Url.Action("Index", "Sizes")" title="Back">Hủy</a>
+    <a class="btn btn-danger m-r-5" href="@Url.Action("Index", "Colors")" title="Back">Hủy</a>
 </div>
     }
 </div>

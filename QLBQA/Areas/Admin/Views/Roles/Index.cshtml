@@ -11,8 +11,35 @@
 <p>
 
     <a class="btn btn-secondary btn-tone m-r-5" href="@Url.Action("Create", "Roles")" title="Create">Thêm mới</a>
-    
+
 </p>
+
+@* Thông bao lỗi *@
+@if (TempData["ErrMsg"] != null)
+{
+    ViewBag.ErrMsg = TempData["ErrMsg"].ToString();
+    TempData["ErrMsg"] = null;
+    <div id="alertMessage" class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <i class="anticon anticon-warning"></i>
+        @ViewBag.ErrMsg
+    </div>
+}
+<style>
+    #alertMessage {
+        transition: opacity 1s ease-in-out;
+    }
+</style>
+<script>
+    var disappearingDiv = document.getElementById("alertMessage");
+    function makeDisappear() {
+        disappearingDiv.style.opacity = 0;
+    }
+    setTimeout(makeDisappear, 5000);
+</script>
+@* End thông báo lỗi *@
 <div class="table-responsive">
     <table class="table">
         <thead>

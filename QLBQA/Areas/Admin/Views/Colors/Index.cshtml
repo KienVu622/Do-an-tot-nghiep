@@ -1,16 +1,17 @@
-﻿@model IEnumerable<QLBQA.Models.Size>
+﻿@model IEnumerable<QLBQA.Models.Color>
 
 @{
-    ViewBag.Title = "Quản lý kích cỡ";
+    ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Quản lý kích cỡ</h2>
+
+<h2>Quản lý màu sắc</h2>
 
 
 <p>
 
-    <a class="btn btn-secondary btn-tone m-r-5" href="@Url.Action("Create", "Sizes")" title="Create">Thêm mới</a>
+    <a class="btn btn-secondary btn-tone m-r-5" href="@Url.Action("Create", "Colors")" title="Create">Thêm mới</a>
 
 </p>
 
@@ -48,8 +49,9 @@
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Tên kích cỡ</th>
-                <th scope="col">Mô tả</th>
+                <th scope="col">Tên màu</th>
+                <th scope="col">Mã màu</th>
+                <th scope="col"></th>
                 <th scope="col">#</th>
             </tr>
         </thead>
@@ -59,13 +61,16 @@
                 foreach (var item in Model)
                 {
                     <tr>
-                        <th scope="row">@item.SizeID</th>
-                        <td>@item.SizeName</td>
-                        <td>@item.Description</td>
+                        <th scope="row">@item.ColorID</th>
+                        <td>@item.ColorName</td>
+                        <td>@item.ColorCode</td>
                         <td>
-                            <a class="btn btn-primary btn-tone m-r-5" href="@Url.Action("Details", "Sizes", new { id = item.SizeID })" title="Details">Chi tiết</a>
-                            <a class="btn btn-warning btn-tone m-r-5" href="@Url.Action("Edit", "Sizes", new { id = item.SizeID })" title="Edit">Sửa</a>
-                            <a class="btn btn-danger btn-tone m-r-5" href="@Url.Action("Delete", "Sizes", new { id = item.SizeID })" title="Delete">Xóa</a>
+                            <div class="circle" style=" background-color: @item.ColorCode;"></div>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-tone m-r-5" href="@Url.Action("Details", "Colors", new { id = item.ColorID })" title="Details">Chi tiết</a>
+                            <a class="btn btn-warning btn-tone m-r-5" href="@Url.Action("Edit", "Colors", new { id = item.ColorID })" title="Edit">Sửa</a>
+                            <a class="btn btn-danger btn-tone m-r-5" href="@Url.Action("Delete", "Colors", new { id = item.ColorID })" title="Delete">Xóa</a>
 
 
                         </td>
@@ -76,3 +81,11 @@
         </tbody>
     </table>
 </div>
+
+<style>
+    .circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+</style>

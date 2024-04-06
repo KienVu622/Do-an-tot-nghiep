@@ -81,3 +81,7 @@ D:\Do an\QLBQA\QLBQA\bin\EntityFramework.dll
 D:\Do an\QLBQA\QLBQA\bin\EntityFramework.SqlServer.dll
 D:\Do an\QLBQA\QLBQA\bin\EntityFramework.xml
 D:\Do an\QLBQA\QLBQA\bin\EntityFramework.SqlServer.xml
+D:\Do an\QLBQA\QLBQA\bin\PagedList.dll
+D:\Do an\QLBQA\QLBQA\bin\PagedList.Mvc.dll
+D:\Do an\QLBQA\QLBQA\bin\PagedList.xml
+D:\Do an\QLBQA\QLBQA\bin\PagedList.Mvc.xml
