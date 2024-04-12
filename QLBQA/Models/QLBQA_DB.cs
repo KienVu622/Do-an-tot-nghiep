@@ -16,6 +16,7 @@ namespace QLBQA.Models
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Color> Colors { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
@@ -59,6 +60,11 @@ namespace QLBQA.Models
             modelBuilder.Entity<Customer>()
                 .Property(e => e.Salt)
                 .IsFixedLength();
+
+            modelBuilder.Entity<Product>()
+                .HasMany(e => e.Images)
+                .WithRequired(e => e.Product)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Product>()
                 .HasMany(e => e.ProductDetails)

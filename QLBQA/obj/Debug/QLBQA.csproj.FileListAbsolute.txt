@@ -72,7 +72,6 @@ D:\Do an\QLBQA\QLBQA\bin\System.Web.WebPages.Razor.xml
 D:\Do an\QLBQA\QLBQA\bin\Newtonsoft.Json.xml
 D:\Do an\QLBQA\QLBQA\bin\Antlr3.Runtime.pdb
 D:\Do an\QLBQA\QLBQA\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Do an\QLBQA\QLBQA\obj\Debug\QLBQA.csproj.AssemblyReference.cache
 D:\Do an\QLBQA\QLBQA\obj\Debug\QLBQA.csproj.CoreCompileInputs.cache
 D:\Do an\QLBQA\QLBQA\obj\Debug\QLBQA.csproj.CopyComplete
 D:\Do an\QLBQA\QLBQA\obj\Debug\QLBQA.dll
@@ -85,3 +84,4 @@ D:\Do an\QLBQA\QLBQA\bin\PagedList.dll
 D:\Do an\QLBQA\QLBQA\bin\PagedList.Mvc.dll
 D:\Do an\QLBQA\QLBQA\bin\PagedList.xml
 D:\Do an\QLBQA\QLBQA\bin\PagedList.Mvc.xml
+D:\Do an\QLBQA\QLBQA\obj\Debug\QLBQA.csproj.AssemblyReference.cache

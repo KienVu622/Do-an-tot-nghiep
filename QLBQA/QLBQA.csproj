@@ -141,6 +141,7 @@
     <Compile Include="Areas\Admin\Controllers\ColorsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomersController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ImagesController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
@@ -149,20 +150,25 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="dbQLBQAcontext.cs" />
+    <Compile Include="Enums\CacheKeys.cs" />
+    <Compile Include="Extension\Extension.cs" />
+    <Compile Include="Extension\HashMD5.cs" />
+    <Compile Include="Extension\IdentityExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\Ultilities.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Color.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Page.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\ProductDetail.cs" />
     <Compile Include="Models\QLBQA_DB.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Shipper.cs" />
@@ -711,6 +717,7 @@
     <Content Include="assets\Admin_assets\vendors\select2\select2_locale_vi.js" />
     <Content Include="assets\Admin_assets\vendors\select2\select2_locale_zh-CN.js" />
     <Content Include="assets\Admin_assets\vendors\select2\select2_locale_zh-TW.js" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\thumb.jpg" />
     <Content Include="assets\User_assets\css\plugins\animate.min.css" />
     <Content Include="assets\User_assets\css\plugins\jquery-ui.min.css" />
     <Content Include="assets\User_assets\css\plugins\magnific-popup.min.css" />
@@ -1229,6 +1236,33 @@
     <Content Include="Areas\Admin\Views\Products\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\_ProductList.cshtml" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\1.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\10.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\11.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\12.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\13.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\14.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\15.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\2.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\3.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\4.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\5.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\6.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\7.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\8.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\9.webp" />
+    <Content Include="assets\ClothImages\Nam\Ao\1\thumb.webp" />
+    <Content Include="Areas\Admin\Views\Shared\_AddImagePartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Images\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Images\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Images\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Images\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Images\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductDetails\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductDetails\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductDetails\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductDetails\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductDetails\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1263,6 +1297,24 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="assets\ClothImages\Be_gai\Ao\" />
+    <Folder Include="assets\ClothImages\Be_gai\Bo_Quan_Ao\" />
+    <Folder Include="assets\ClothImages\Be_gai\Phu_Kien\" />
+    <Folder Include="assets\ClothImages\Be_gai\Quan\" />
+    <Folder Include="assets\ClothImages\Be_gai\Vay\" />
+    <Folder Include="assets\ClothImages\Be_trai\Ao\" />
+    <Folder Include="assets\ClothImages\Be_trai\Bo_Quan_Ao\" />
+    <Folder Include="assets\ClothImages\Be_trai\Phu_Kien\" />
+    <Folder Include="assets\ClothImages\Be_trai\Quan\" />
+    <Folder Include="assets\ClothImages\Nam\Bo_Quan_Ao\" />
+    <Folder Include="assets\ClothImages\Nam\Phu_Kien\" />
+    <Folder Include="assets\ClothImages\Nam\Quan\" />
+    <Folder Include="assets\ClothImages\Nu\Ao\" />
+    <Folder Include="assets\ClothImages\Nu\Bo_Quan_Ao\" />
+    <Folder Include="assets\ClothImages\Nu\Phu_Kien\" />
+    <Folder Include="assets\ClothImages\Nu\Quan\" />
+    <Folder Include="assets\ClothImages\Nu\Vay\" />
+    <Folder Include="Content\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -1282,6 +1334,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

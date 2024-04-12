@@ -81,9 +81,26 @@ namespace QLBQA.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var f = Request.Files["ImageFile"];
+                if(f!=null && f.ContentLength>0)
+                {
+                    string FileName = System.IO.Path.GetFileName(f.FileName);
+                    string UploadPath = Server.MapPath("~/Content/images/" + product.ProductID+"_"+FileName);
+                    f.SaveAs(UploadPath);
+                    product.Thumb = FileName;
+                    // Chuyển hướng đến hành động Create của Controller Image và truyền ID của sản phẩm
+                    
+                }
                 db.Products.Add(product);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                int productId = product.ProductID;
+                string productName = product.ProductName;
+
+                // Lưu ProductID và ProductName vào TempData để truyền sang trang Create của Images
+                TempData["ProductId"] = productId;
+                TempData["ProductName"] = productName;
+
+                return RedirectToAction("Create", "Images");
             }
 
             ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName", product.CatID);
