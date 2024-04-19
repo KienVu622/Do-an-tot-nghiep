@@ -1,35 +1,34 @@
 ﻿@model QLBQA.Models.ProductDetail
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Xóa thuộc tính";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bạn có chắc muốn xóa thuộc tính này?</h3>
 <div>
-    <h4>ProductDetail</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Color.ColorName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Color.ColorName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Product.ProductName)
+            Sản phẩm
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Product.ProductName)
         </dd>
+        <dt>
+            Màu sắc
+        </dt>
+        <dd>
+            <div class="circle" style=" background-color: @Model.Color.ColorCode;"></div>
+        </dd>
+
+
 
         <dt>
-            @Html.DisplayNameFor(model => model.Size.SizeName)
+            Size
         </dt>
 
         <dd>
@@ -37,7 +36,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
+            Số lượng
         </dt>
 
         <dd>
@@ -49,9 +48,16 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+<div class="form-actions no-color">
+    <input class="btn btn-primary m-r-5" type="submit" value="Xóa" />
+    <a class="btn btn-danger m-r-5" href="@Url.Action("CancelDelete", "ProductDetails", new { id = Model.ProductID })" title="Back">Hủy</a>
+</div>
     }
 </div>
+<style>
+    .circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+</style>

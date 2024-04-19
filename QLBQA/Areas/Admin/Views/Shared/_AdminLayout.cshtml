@@ -14,6 +14,7 @@
 
     <!-- Core css -->
     <link href="~/assets/Admin_assets/css/app.min.css" rel="stylesheet">
+    @RenderSection("Style", required: false)
 
 </head>
 
@@ -383,6 +384,8 @@
     <script src="~/assets/Admin_assets/js/app.min.js"></script>
     <script src="~/assets/Admin_assets/vendors/select2/select2.min.js"></script>
     <script src="~/assets/Admin_assets/vendors/quill/quill.min.js"></script>
+    @RenderSection("Scripts", required: false)
+
 </body>
 
 </html>

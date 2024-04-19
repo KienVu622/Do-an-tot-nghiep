@@ -1,49 +1,44 @@
 ﻿@model QLBQA.Models.Image
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Xóa hình ảnh";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+
+<h3>Bạn có chắc muốn xóa hình ảnh này?</h3>
 <div>
-    <h4>Image</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Product.ProductName)
+
         </dt>
 
+        <dd>
+            <img src="~/Content/images/@Model.Path" alt="@Model.Description" />
+        </dd>
         <dd>
             @Html.DisplayFor(model => model.Product.ProductName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Path)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Path)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-
+        @Html.HiddenFor(model => model.Product.ProductID)
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+<div class="form-actions no-color">
+    <input class="btn btn-primary m-r-5" type="submit" value="Xóa" />
+    <a class="btn btn-danger m-r-5" href="@Url.Action("CancelDelete", "Images", new { id = Model.ImageID })" title="Back">Hủy</a>
+</div>
     }
 </div>

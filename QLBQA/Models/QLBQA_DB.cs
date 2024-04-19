@@ -7,9 +7,11 @@ namespace QLBQA.Models
 {
     public partial class QLBQA_DB : DbContext
     {
+
         public QLBQA_DB()
             : base("name=QLBQA_DB")
         {
+            this.Database.Log = Console.Write;
         }
 
         public virtual DbSet<Account> Accounts { get; set; }
@@ -22,13 +24,13 @@ namespace QLBQA.Models
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<ProductDetail> ProductDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Shipper> Shippers { get; set; }
         public virtual DbSet<Size> Sizes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TransactStatu> TransactStatus { get; set; }
-        public virtual DbSet<ProductDetail> ProductDetails { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -59,6 +61,14 @@ namespace QLBQA.Models
 
             modelBuilder.Entity<Customer>()
                 .Property(e => e.Salt)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Image>()
+                .Property(e => e.Path)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Image>()
+                .Property(e => e.Description)
                 .IsFixedLength();
 
             modelBuilder.Entity<Product>()

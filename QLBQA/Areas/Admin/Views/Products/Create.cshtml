@@ -84,10 +84,12 @@
                                 </div>
                             </div>
                             <div class="form-group col-6">
-                                <p class="control-label col-md-2">Số lượng</p>
+                                <p class="control-label col-md-2">Ngày tạo</p>
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.UnitsInStock, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.UnitsInStock, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(model => model.DateCreated, new { @class = "form-control", type = "datetime-local", id = "dateCreated" })
+
+
+                                    @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
@@ -164,7 +166,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input class="btn btn-success m-r-5" type="submit" value="Thêm và tiếp tục" class="btn btn-default" />
+                <input class="btn btn-success m-r-5" type="submit" value="Thêm và tiếp tục"  />
                 <a class="btn btn-danger m-r-5" href="@Url.Action("Index", "Products")" title="Back">Hủy</a>
             </div>
         </div> 
@@ -185,7 +187,7 @@
 
 </body>
 
-</html>
+
 @*@section Scripts {
         @Scripts.Render("~/assets/Admin_assets/vendors/select2/select2.min.js")
     }*@
@@ -199,4 +201,22 @@
         var image = document.getElementById('output');
         image.src = URL.createObjectURL(event.target.files[0]);
     };
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy ngày và giờ hiện tại
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString().padStart(2, '0');
+        var day = now.getDate().toString().padStart(2, '0');
+        var hours = now.getHours().toString().padStart(2, '0');
+        var minutes = now.getMinutes().toString().padStart(2, '0');
+
+        // Định dạng lại chuỗi ngày và giờ hiện tại
+        var formattedDate = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+        // Đặt giá trị mặc định cho trường DateCreated
+        document.getElementById("dateCreated").value = formattedDate;
+    });
+
+
+
 </script>

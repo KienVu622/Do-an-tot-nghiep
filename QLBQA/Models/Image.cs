@@ -10,9 +10,10 @@ namespace QLBQA.Models
     {
         public int ImageID { get; set; }
 
-
+        [StringLength(255)]
         public string Path { get; set; }
 
+        [StringLength(255)]
         public string Description { get; set; }
 
         public int ProductID { get; set; }

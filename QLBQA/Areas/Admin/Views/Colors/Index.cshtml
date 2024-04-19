@@ -5,9 +5,15 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-
-<h2>Quản lý màu sắc</h2>
-
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a href="@Url.Action("Index", "Home", new { area = "Admin" })" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <span class="breadcrumb-item active">Quản lý thuộc tính</span>
+            <span class="breadcrumb-item active">Quản lý màu sắc</span>
+        </nav>
+    </div>
+</div>
 
 <p>
 

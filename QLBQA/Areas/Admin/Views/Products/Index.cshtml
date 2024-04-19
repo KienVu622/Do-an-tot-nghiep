@@ -16,25 +16,22 @@
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
             <a href="@Url.Action("Index", "Home", new { area = "Admin" })" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-            <span class="breadcrumb-item active">Danh sách sản phẩm</span>
+            <span class="breadcrumb-item active">Quản lý sản phẩm</span>
         </nav>
     </div>
 </div>
+
 <div class="card">
     <div class="card-body">
 
-        @*@using (Html.BeginForm())
-        {
-            <div style="display: flex; /* width: 1500px; */ justify-content: space-between; align-items: center; ">
-                <a class="btn btn-primary" href="@Url.Action("Index", "Products")" title="Back">Tất cả</a>
-                <p style="display: inline-block; float: right;">
-                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "Nhập tên...", style = "padding: 5px;" })
-                    <input class="btn btn-primary" type="submit" value="Tìm">
-                </p>
-            </div>
-        }*@
-        <div class="row m-b-30">
-            <div class="col-lg-8">
+
+
+        <p>
+
+            <a class="btn btn-secondary btn-tone m-r-5" href="@Url.Action("Create", "Products")" title="Create">Thêm mới</a>
+
+        </p>
+
                 <div class="d-md-flex">
                     <div class="m-b-10 m-r-15">
                         <select id="catSelect" class="custom-select" style="min-width: 180px;">
@@ -46,19 +43,23 @@
                                 <option value="@cat.CatID">@cat.CatName</option>
                             }
                         </select>
+
+                    </div>
+                    <div class="ml-auto m-b-10">
+                        @using (Html.BeginForm())
+                        {
+                            <p style="display: inline-block; float: right;">
+                                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "Nhập tên sản phẩm...", style = "padding: 5px;" })
+                                <input class="btn btn-primary" type="submit" value="Tìm">
+                            </p>
+
+                        }
+
+                    </div>
                     </div>
 
 
-                </div>
-
-            </div>
-
-        </div>
-        <p>
-
-            <a class="btn btn-secondary btn-tone m-r-5" href="@Url.Action("Create", "Products")" title="Create">Thêm mới</a>
-
-        </p>
+ 
         @* Thông bao lỗi *@
         @if (TempData["ErrMsg"] != null)
         {
@@ -104,30 +105,30 @@
                     {
                         foreach (var item in Model)
                         {
-                    <tr>
-                        <td>
-                            @item.ProductID
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img class="img-fluid rounded" src="assets/images/others/thumb-9.jpg" style="max-width: 60px" alt="">
-                                <h6 class="m-b-0 m-l-10">@item.ProductName</h6>
-                            </div>
-                        </td>
-                        <td>@item.Category.CatName</td>
-                        <td>@item.Price</td>
-                        @*<td>@item.LastLogin</td>*@
-                        <td>@item.UnitsInStock</td>
+                            <tr>
+                                <td>
+                                    @item.ProductID
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img class="img-fluid rounded" src="assets/images/others/thumb-9.jpg" style="max-width: 60px" alt="">
+                                        <h6 class="m-b-0 m-l-10">@item.ProductName</h6>
+                                    </div>
+                                </td>
+                                <td>@item.Category.CatName</td>
+                                <td>@item.Price</td>
+                                @*<td>@item.LastLogin</td>*@
+                                <td>@item.UnitsInStock</td>
 
-                        <td><img style="width:100px" src="~/Content/images/@item.Thumb" alt="Thumb"></td>
-                        
-                        
-                        <td>
-                            <a class="btn btn-primary btn-tone m-r-5" href="@Url.Action("Details", "Products", new { id = item.ProductID })" title="Details">Chi tiết</a>
-                            <a class="btn btn-warning btn-tone m-r-5" href="@Url.Action("Edit", "Products", new { id = item.ProductID })" title="Edit">Sửa</a>
-                            <a class="btn btn-danger btn-tone m-r-5" href="@Url.Action("Delete", "Products", new { id = item.ProductID })" title="Delete">Xóa</a>
-                        </td>
-                    </tr>
+                                <td><img style="width:100px" src="~/Content/images/thumb_@item.Thumb" alt="Thumb"></td>
+
+
+                                <td>
+                                    <a class="btn btn-primary btn-tone m-r-5" href="@Url.Action("Details", "Products", new { id = item.ProductID })" title="Details">Chi tiết</a>
+                                    <a class="btn btn-warning btn-tone m-r-5" href="@Url.Action("Edit", "Products", new { id = item.ProductID })" title="Edit">Sửa</a>
+                                    <a class="btn btn-danger btn-tone m-r-5" href="@Url.Action("Delete", "Products", new { id = item.ProductID })" title="Delete">Xóa</a>
+                                </td>
+                            </tr>
                         }
                     }
 

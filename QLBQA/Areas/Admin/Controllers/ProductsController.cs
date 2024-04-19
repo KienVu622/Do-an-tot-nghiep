@@ -9,8 +9,8 @@ using System.Web.Mvc;
 using QLBQA.Models;
 using PagedList;
 namespace QLBQA.Areas.Admin.Controllers
-{   
-   
+{
+
     public class ProductsController : Controller
     {
 
@@ -21,13 +21,14 @@ namespace QLBQA.Areas.Admin.Controllers
             return Content("<script>window.location.reload();</script>");
         }
         public ActionResult SelectFollowingCat(int? id)
-        {   
-                if(!id.HasValue)
+        {
+            if (!id.HasValue)
             {
                 return RedirectToAction("ReloadPage");
-            }else
+            }
+            else
             {
-                var products =db.Products.Include(a => a.Category).Where(a => a.CatID == id).ToList();
+                var products = db.Products.Include(a => a.Category).Where(a => a.CatID == id).ToList();
                 return PartialView("_ProductList", products);
             }
 
@@ -35,21 +36,31 @@ namespace QLBQA.Areas.Admin.Controllers
 
         }
         // GET: Admin/Products
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string searchString, string currentFilter)
         {
+            //return View(db.Customers.ToList());
 
             var cats = db.Categories.ToList();
             ViewBag.Cats = cats;
-            var QLBQA_context = db.Products.Include(a => a.Category);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
             var products = db.Products.Include(a => a.Category).Select(s => s);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(s => s.ProductName.Contains(searchString));
+            }
             products = products.OrderBy(s => s.ProductID);
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(products.ToPagedList(pageNumber, pageSize));
-
-
         }
-
         // GET: Admin/Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -82,14 +93,14 @@ namespace QLBQA.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var f = Request.Files["ImageFile"];
-                if(f!=null && f.ContentLength>0)
+                if (f != null && f.ContentLength > 0)
                 {
                     string FileName = System.IO.Path.GetFileName(f.FileName);
-                    string UploadPath = Server.MapPath("~/Content/images/" + product.ProductID+"_"+FileName);
+                    string UploadPath = Server.MapPath("~/Content/images/" + "thumb" + "_" + FileName);
                     f.SaveAs(UploadPath);
                     product.Thumb = FileName;
                     // Chuyển hướng đến hành động Create của Controller Image và truyền ID của sản phẩm
-                    
+
                 }
                 db.Products.Add(product);
                 db.SaveChanges();
@@ -128,17 +139,43 @@ namespace QLBQA.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,ProductName,ShortDesc,Description,CatID,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsInStock")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,ProductName,ShortDesc,Description,CatID,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsInStock")] Product product, HttpPostedFileBase ImageFile)
         {
             if (ModelState.IsValid)
             {
+                var a = product;
+                // Kiểm tra xem có hình ảnh mới được tải lên không
+                if (ImageFile != null && ImageFile.ContentLength > 0)
+                {
+                    // Xóa hình ảnh cũ
+                    string oldImagePath = Server.MapPath("~/Content/images/thumb_" + product.Thumb);
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+
+                    // Lưu hình ảnh mới
+                    string FileName = System.IO.Path.GetFileName(ImageFile.FileName);
+                    string UploadPath = Server.MapPath("~/Content/images/" + "thumb" + "_" + FileName);
+                    ImageFile.SaveAs(UploadPath);
+                    product.Thumb = FileName;
+                }
+
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                int productId = product.ProductID;
+                string productName = product.ProductName;
+
+                // Lưu ProductID và ProductName vào TempData để truyền sang trang Edit của Images
+                TempData["ProductId"] = productId;
+                TempData["ProductName"] = productName;
+                return RedirectToAction("Edit", "Images");
             }
             ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName", product.CatID);
             return View(product);
         }
+
+
 
         // GET: Admin/Products/Delete/5
         public ActionResult Delete(int? id)
