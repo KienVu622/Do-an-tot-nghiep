@@ -1,8 +1,13 @@
-﻿
+﻿@model PagedList.IPagedList<QLBQA.Models.Post>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Blog Index";
+    ViewBag.Title = "Tin tức";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+    <title>Tin thời trang</title>
+</head>
 
 <main class="main-content">
     <div class="breadcrumb-area breadcrumb-height" data-bg-image="~/assets/User_assets/images/breadcrumb/bg/1-1-1920x373.jpg">
@@ -10,12 +15,12 @@
             <div class="row h-100">
                 <div class="col-lg-12">
                     <div class="breadcrumb-item">
-                        <h2 class="breadcrumb-heading">Blog Layout</h2>
+                        <h2 class="breadcrumb-heading">TIN THỜI TRANG</h2>
                         <ul>
                             <li>
                                 <a href="/">Home <i class="pe-7s-angle-right"></i></a>
                             </li>
-                            <li>Blog Default</li>
+                            <li>Tin tức</li>
                         </ul>
                     </div>
                 </div>
@@ -25,279 +30,102 @@
     <div class="blog-area blog-column-2 section-space-y-axis-100">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="blog-item">
-                        <div class="blog-img img-zoom-effect">
-                            <a href="blog-detail-left-sidebar.html">
-                                <img class="img-full" src="~/assets/User_assets/images/blog/medium-size/2-1-570x485.jpg" alt="Blog Image">
-                            </a>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta text-dim-gray pb-3">
-                                <ul>
-                                    <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
-                                    <li>
-                                        <span class="comments me-3">
-                                            <a href="javascript:void(0)">2 Comments</a>
-                                        </span>
-                                        <span class="link-share">
-                                            <a href="javascript:void(0)">Share</a>
-                                        </span>
-                                    </li>
-                                </ul>
+                @foreach (var item in Model.Where(p => p.Pulished == true))
+                {
+                    <div class="col-md-6">
+                        <div style=" margin-bottom: 28px;" class="blog-item">
+                            <div class="blog-img img-zoom-effect">
+                                <a href="@Url.Action("Details", "Blog", new { id = item.PostID })">
+                                    <img title="@item.Title" class="img-full" src="~/Content/images/thumb_post_@item.Thumb" alt="Blog Image">
+                                </a>
                             </div>
-                            <h5 class="title mb-4">
-                                <a href="blog-detail-left-sidebar.html">Blog Image Post</a>
-                            </h5>
-                            <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
-                            <div class="button-wrap">
-                                <a class="btn btn-custom-size lg-size btn-dark rounded-0" href="blog-detail-left-sidebar.html">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 pt-6 pt-md-0">
-                    <div class="swiper-container single-blog-slider">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="blog-item">
-                                    <div class="blog-img img-zoom-effect">
-                                        <a href="blog-detail-left-sidebar.html">
-                                            <img class="img-full" src="~/assets/User_assets/images/blog/medium-size/2-3-570x485.jpg" alt="Blog Image">
-                                        </a>
-                                    </div>
-                                    <div class="blog-content">
-                                        <div class="blog-meta text-dim-gray pb-3">
-                                            <ul>
-                                                <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
-                                                <li>
-                                                    <span class="comments me-3">
-                                                        <a href="javascript:void(0)">2 Comments</a>
-                                                    </span>
-                                                    <span class="link-share">
-                                                        <a href="javascript:void(0)">Share</a>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h5 class="title mb-4">
-                                            <a href="blog-detail-left-sidebar.html">Blog Gallery Post</a>
-                                        </h5>
-                                        <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
-                                        <div class="button-wrap">
-                                            <a class="btn btn-custom-size lg-size btn-dark rounded-0" href="blog-detail-left-sidebar.html">Read More</a>
-                                        </div>
-                                    </div>
+                            <div class="blog-content">
+                                <div class="blog-meta text-dim-gray pb-3">
+                                    <ul>
+                                        <li class="date"><i class="fa fa-calendar-o me-2"></i>@item.CreateDate</li>
+                                        <li>
+                                            @item.Author
+                                        </li>
+                                    </ul>
                                 </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="blog-item">
-                                    <div class="blog-img img-zoom-effect">
-                                        <a href="blog-detail-left-sidebar.html">
-                                            <img class="img-full" src="~/assets/User_assets/images/blog/medium-size/2-2-570x485.jpg" alt="Blog Image">
-                                        </a>
-                                    </div>
-                                    <div class="blog-content">
-                                        <div class="blog-meta text-dim-gray pb-3">
-                                            <ul>
-                                                <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
-                                                <li>
-                                                    <span class="comments me-3">
-                                                        <a href="javascript:void(0)">2 Comments</a>
-                                                    </span>
-                                                    <span class="link-share">
-                                                        <a href="javascript:void(0)">Share</a>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h5 class="title mb-4">
-                                            <a href="blog-detail-left-sidebar.html">Blog Second Gallery Post</a>
-                                        </h5>
-                                        <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
-                                        <div class="button-wrap">
-                                            <a class="btn btn-custom-size lg-size btn-dark rounded-0" href="blog-detail-left-sidebar.html">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="blog-item">
-                                    <div class="blog-img img-zoom-effect">
-                                        <a href="blog-detail-left-sidebar.html">
-                                            <img class="img-full" src="~/assets/User_assets/images/blog/medium-size/2-1-570x485.jpg" alt="Blog Image">
-                                        </a>
-                                    </div>
-                                    <div class="blog-content">
-                                        <div class="blog-meta text-dim-gray pb-3">
-                                            <ul>
-                                                <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
-                                                <li>
-                                                    <span class="comments me-3">
-                                                        <a href="javascript:void(0)">2 Comments</a>
-                                                    </span>
-                                                    <span class="link-share">
-                                                        <a href="javascript:void(0)">Share</a>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h5 class="title mb-4">
-                                            <a href="blog-detail-left-sidebar.html">Blog Third Gallery Post</a>
-                                        </h5>
-                                        <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
-                                        <div class="button-wrap">
-                                            <a class="btn btn-custom-size lg-size btn-dark rounded-0" href="blog-detail-left-sidebar.html">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 pt-6">
-                    <div class="blog-item">
-                        <div class="ratio ratio-16x9">
-                            <iframe allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/182537870&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta text-dim-gray pb-3">
-                                <ul>
-                                    <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
-                                    <li>
-                                        <span class="comments me-3">
-                                            <a href="javascript:void(0)">2 Comments</a>
-                                        </span>
-                                        <span class="link-share">
-                                            <a href="javascript:void(0)">Share</a>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <h5 class="title mb-4">
-                                <a href="blog-detail-left-sidebar.html">Blog Audio Post</a>
-                            </h5>
-                            <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
-                            <div class="button-wrap">
-                                <a class="btn btn-custom-size lg-size btn-dark rounded-0" href="blog-detail-left-sidebar.html">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 pt-6">
-                    <div class="blog-item">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/fkoEj95puX0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta text-dim-gray pb-3">
-                                <ul>
-                                    <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
-                                    <li>
-                                        <span class="comments me-3">
-                                            <a href="javascript:void(0)">2 Comments</a>
-                                        </span>
-                                        <span class="link-share">
-                                            <a href="javascript:void(0)">Share</a>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <h5 class="title mb-4">
-                                <a href="blog-detail-left-sidebar.html">Blog Video Post</a>
-                            </h5>
-                            <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
-                            <div class="button-wrap">
-                                <a class="btn btn-custom-size lg-size btn-dark rounded-0" href="blog-detail-left-sidebar.html">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 pt-6">
-                    <div class="blog-item">
-                        <div class="blog-img img-zoom-effect">
-                            <a href="blog-detail-left-sidebar.html">
-                                <img class="img-full" src="~/assets/User_assets/images/blog/medium-size/2-3-570x485.jpg" alt="Blog Image">
-                            </a>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta text-dim-gray pb-3">
-                                <ul>
-                                    <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
-                                    <li>
-                                        <span class="comments me-3">
-                                            <a href="javascript:void(0)">2 Comments</a>
-                                        </span>
-                                        <span class="link-share">
-                                            <a href="javascript:void(0)">Share</a>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <h5 class="title mb-4">
-                                <a href="blog-detail-left-sidebar.html">Lorem ipsum dolor sit amet consecte</a>
-                            </h5>
-                            <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
-                            <div class="button-wrap">
-                                <a class="btn btn-custom-size lg-size btn-dark rounded-0" href="blog-detail-left-sidebar.html">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 pt-6">
-                    <div class="blog-item">
-                        <div class="blog-img img-zoom-effect">
-                            <a href="blog-detail-left-sidebar.html">
-                                <img class="img-full" src="~/assets/User_assets/images/blog/medium-size/2-4-570x485.jpg" alt="Blog Image">
-                            </a>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta text-dim-gray pb-3">
-                                <ul>
-                                    <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
-                                    <li>
-                                        <span class="comments me-3">
-                                            <a href="javascript:void(0)">2 Comments</a>
-                                        </span>
-                                        <span class="link-share">
-                                            <a href="javascript:void(0)">Share</a>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <h5 class="title mb-4">
-                                <a href="blog-detail-left-sidebar.html">Lorem ipsum dolor sit amet consecte</a>
-                            </h5>
-                            <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
-                            <div class="button-wrap">
-                                <a class="btn btn-custom-size lg-size btn-dark rounded-0" href="blog-detail-left-sidebar.html">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="pagination-area pt-10">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span class="fa fa-chevron-left"></span>
+                                <h5 class="title mb-4">
+                                    <a title="@item.Title" href="@Url.Action("Details", "Blog", new { id = item.PostID })">
+                                        <span class="clamp-2">@item.Title</span>
                                     </a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span class="fa fa-chevron-right"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                                </h5>
+
+
+                                @*<div style=" overflow: hidden;">
+                                        <p class="short-desc mb-5"><a style="font-size:larger" class="short-desc" href="blog-detail-left-sidebar.html">@item.Title</a></p>
+                                    </div>*@
+                                <div style=" overflow: hidden;" class="title mb-4">
+                                    <p class="short-desc mb-5">@item.SContents</p>
+                                </div>
+
+
+                                <div class="button-wrap">
+                                    <a class="btn btn-custom-size lg-size btn-dark rounded-0" href="@Url.Action("Details", "Blog", new { id = item.PostID })">Xem thêm</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                }
+
             </div>
         </div>
     </div>
 </main>
+<div id="pages">
+    <div id="pages">
+        @Html.PagedListPager(Model,
+            page => Url.Action("Index", new { page }),
+            new PagedListRenderOptions
+                {
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always, 
+                MaximumPageNumbersToDisplay = 5, 
+                EllipsesFormat = "&#8230;", 
+                LinkToPreviousPageFormat = "<",
+                LinkToNextPageFormat = ">",
+                LinkToFirstPageFormat = "<<", 
+                LinkToLastPageFormat = ">>", 
+            })
+    </div>
 
+</div>
+
+<style>
+    .short-desc {
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Số dòng tối đa */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2; /* Số dòng tối đa */
+        /* Cố định chiều cao của thẻ */
+        height: calc(2 * 1.8em); /* 1.2em là chiều cao của mỗi dòng (có thể điều chỉnh) */
+    }
+
+    .clamp-2 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2; /* Số dòng tối đa */
+        /* Cố định chiều cao của thẻ */
+        height: calc(2 * 1.4em); /* 1.2em là chiều cao của mỗi dòng (có thể điều chỉnh) */
+    }
+</style>
+
+<style>
+    .active a {
+        background-color: rgb(186, 195, 78) !important;
+    }
+    #pages {
+        display: flex;
+        justify-content: center;
+    }
+        #pages ul li a {
+            padding: 16px 20px;
+        }
+</style>

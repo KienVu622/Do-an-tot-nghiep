@@ -5,7 +5,7 @@ namespace QLBQA.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
+    using System.Web.Mvc;
     public partial class Post
     {
         public int PostID { get; set; }
@@ -16,6 +16,7 @@ namespace QLBQA.Models
         [StringLength(255)]
         public string SContents { get; set; }
 
+        [AllowHtml]
         public string Contents { get; set; }
 
         [StringLength(255)]
@@ -37,9 +38,9 @@ namespace QLBQA.Models
 
         public int? CatID { get; set; }
 
-        public bool? isHot { get; set; }
+        public bool isHot { get; set; }
 
-        public bool? isNewfeed { get; set; }
+        public bool isNewfeed { get; set; }
 
         [StringLength(255)]
         public string MetaDesc { get; set; }

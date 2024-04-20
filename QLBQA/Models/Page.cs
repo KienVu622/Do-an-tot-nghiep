@@ -5,6 +5,7 @@ namespace QLBQA.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Mvc;
 
     public partial class Page
     {
@@ -13,6 +14,7 @@ namespace QLBQA.Models
         [StringLength(250)]
         public string PageName { get; set; }
 
+        [AllowHtml]
         public string Contents { get; set; }
 
         [StringLength(250)]

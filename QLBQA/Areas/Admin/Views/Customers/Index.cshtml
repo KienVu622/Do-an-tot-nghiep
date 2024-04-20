@@ -172,7 +172,28 @@
     });
 });
 
-</script>
-Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+</script> 
+<div id="pages">
+    <div id="pages">
+        @Html.PagedListPager(Model,
+            page => Url.Action("Index", "Customers", new { page, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions
+                {
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                MaximumPageNumbersToDisplay = 5,
+                EllipsesFormat = "&#8230;",
+                LinkToPreviousPageFormat = "<",
+                LinkToNextPageFormat = ">",
+                LinkToFirstPageFormat = "<<",
+                LinkToLastPageFormat = ">>",
+            })
+    </div>
 
-@Html.PagedListPager(Model, page => Url.Action("Index", "Customers", new { page, currentFilter = ViewBag.CurrentFilter }))     
+</div>
+<style>
+    #pages {
+        display: flex;
+        justify-content: center;
+    }
+</style>

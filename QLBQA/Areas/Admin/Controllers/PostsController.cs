@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QLBQA.Models;
-
+using PagedList;
 namespace QLBQA.Areas.Admin.Controllers
 {
     public class PostsController : Controller
@@ -15,9 +15,14 @@ namespace QLBQA.Areas.Admin.Controllers
         private QLBQA_DB db = new QLBQA_DB();
 
         // GET: Admin/Posts
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Posts.ToList());
+
+            var posts = db.Posts.Select(s => s);
+            posts = posts.OrderByDescending(s => s.CreateDate);
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(posts.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Admin/Posts/Details/5
@@ -50,16 +55,26 @@ namespace QLBQA.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var f = Request.Files["ImageFile"];
+                if (f != null && f.ContentLength > 0)
+                {
+                    string FileName = System.IO.Path.GetFileName(f.FileName);
+                    string UploadPath = Server.MapPath("~/Content/images/" + "thumb_post_" + FileName);
+                    f.SaveAs(UploadPath);
+                    post.Thumb = FileName;
+                    // Chuyển hướng đến hành động Create của Controller Image và truyền ID của sản phẩm
+
+                }
                 db.Posts.Add(post);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Index",1);
             }
 
             return View(post);
         }
-
-        // GET: Admin/Posts/Edit/5
-        public ActionResult Edit(int? id)
+            // GET: Admin/Posts/Edit/5
+            public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -78,14 +93,26 @@ namespace QLBQA.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostID,Title,SContents,Contents,Thumb,Pulished,Alias,CreateDate,Author,AccountID,Tags,CatID,isHot,isNewfeed,MetaDesc,MetaKey,Views")] Post post)
+        public ActionResult Edit([Bind(Include = "PostID,Title,SContents,Contents,Thumb,Pulished,Alias,CreateDate,Author,AccountID,Tags,CatID,isHot,isNewfeed,MetaDesc,MetaKey,Views")] Post post, HttpPostedFileBase ImageFile)
         {
+
             if (ModelState.IsValid)
             {
+                var f = Request.Files["ImageFile"];
+                if (f != null && f.ContentLength > 0)
+                {
+                    string FileName = System.IO.Path.GetFileName(f.FileName);
+                    string UploadPath = Server.MapPath("~/Content/images/" + "thumb_post_" + FileName);
+                    f.SaveAs(UploadPath);
+                    post.Thumb = FileName;
+
+                }
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Index",1);
             }
+
             return View(post);
         }
 
@@ -112,7 +139,7 @@ namespace QLBQA.Areas.Admin.Controllers
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",1);
         }
 
         protected override void Dispose(bool disposing)

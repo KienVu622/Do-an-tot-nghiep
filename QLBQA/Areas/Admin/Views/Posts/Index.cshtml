@@ -1,124 +1,149 @@
-﻿@model IEnumerable<QLBQA.Models.Post>
-
+﻿@model PagedList.IPagedList<QLBQA.Models.Post>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SContents)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Contents)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Thumb)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pulished)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Alias)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Author)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccountID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tags)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CatID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isHot)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isNewfeed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MetaDesc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MetaKey)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Views)
-        </th>
-        <th></th>
-    </tr>
+<head>
+    <title>Quản lý tin tức</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+</head>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SContents)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Contents)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Thumb)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pulished)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Alias)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccountID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tags)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CatID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isHot)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isNewfeed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MetaDesc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MetaKey)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Views)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PostID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PostID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PostID })
-        </td>
-    </tr>
-}
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a href="@Url.Action("Index", "Home", new { area = "Admin" })" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <span class="breadcrumb-item active">Quản lý tin tức</span>
+        </nav>
+    </div>
+</div>
 
-</table>
+<div class="card">
+    <div class="card-body">
+
+
+
+        <p>
+
+            <a class="btn btn-secondary btn-tone m-r-5" href="@Url.Action("Create", "Posts")" title="Create">Thêm mới</a>
+
+        </p>
+
+        @* Thông bao lỗi *@
+        @if (TempData["ErrMsg"] != null)
+        {
+            ViewBag.ErrMsg = TempData["ErrMsg"].ToString();
+            TempData["ErrMsg"] = null;
+            <div id="alertMessage" class="alert alert-danger" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <i class="anticon anticon-warning"></i>
+                @ViewBag.ErrMsg
+            </div>
+        }
+        <style>
+            #alertMessage {
+                transition: opacity 1s ease-in-out;
+            }
+        </style>
+        <script>
+            var disappearingDiv = document.getElementById("alertMessage");
+            function makeDisappear() {
+                disappearingDiv.style.opacity = 0;
+            }
+            setTimeout(makeDisappear, 5000);
+        </script>
+        @* End thông báo lỗi *@
+
+        <div id="accountTable" class="table-responsive">
+            <table class="table table-hover e-commerce-table">
+                <thead>
+                    <tr>
+
+                        <th>ID</th>
+                        <th style="width:500px">Tiêu đề</th>
+                        <th>Hình minh họa</th>
+                        <th>Trạng thái</th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.PostID
+                                </td>
+                                <td>
+                                    @item.Title
+                                </td>
+                                <td>
+                                    <img style="width:100px" src="~/Content/images/thumb_post_@item.Thumb" alt="Thumb">
+                                </td>
+                                <td>
+                                    @if (item.Pulished)
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <div class="badge badge-success badge-dot m-r-10"></div>
+                                            <div>Published</div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <div class="badge badge-danger badge-dot m-r-10"></div>
+                                            <div>Unpublished</div>
+                                        </div>
+                                    }
+
+                                </td>
+
+
+                                <td>
+                                    <a class="btn btn-primary btn-tone m-r-5" href="@Url.Action("Details", "Posts", new { id = item.PostID })" title="Details">Chi tiết</a>
+                                    <a class="btn btn-warning btn-tone m-r-5" href="@Url.Action("Edit", "Posts", new { id = item.PostID })" title="Edit">Sửa</a>
+                                    <a class="btn btn-danger btn-tone m-r-5" href="@Url.Action("Delete", "Posts", new { id = item.PostID })" title="Delete">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="pages">
+    <div id="pages">
+        @Html.PagedListPager(Model,
+            page => Url.Action("Index", new { page }),
+            new PagedListRenderOptions
+                {
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always, 
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                MaximumPageNumbersToDisplay = 5,
+                EllipsesFormat = "&#8230;", 
+                LinkToPreviousPageFormat = "<",
+                LinkToNextPageFormat = ">",
+                LinkToFirstPageFormat = "<<",
+                LinkToLastPageFormat = ">>",
+            })
+    </div>
+
+</div>
+
+<style>
+    #pages {
+        display: flex;
+        justify-content: center;
+    }
+</style>

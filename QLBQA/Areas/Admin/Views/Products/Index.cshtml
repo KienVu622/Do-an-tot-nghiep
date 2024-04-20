@@ -23,9 +23,6 @@
 
 <div class="card">
     <div class="card-body">
-
-
-
         <p>
 
             <a class="btn btn-secondary btn-tone m-r-5" href="@Url.Action("Create", "Products")" title="Create">Thêm mới</a>
@@ -178,8 +175,28 @@
     });
 });
 </script>
-<div id="pages">
-    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
-    @Html.PagedListPager(Model, page => Url.Action("Index", "Products", new { page, currentFilter = ViewBag.CurrentFilter }))
+<div id="pages">
+    <div id="pages">
+        @Html.PagedListPager(Model,
+             page => Url.Action("Index", "Products", new { page, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions
+                {
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always, // Hiển thị liên kết đến trang đầu tiên
+                DisplayLinkToLastPage = PagedListDisplayMode.Always, // Hiển thị liên kết đến trang cuối cùng
+                MaximumPageNumbersToDisplay = 5, // Số lượng trang tối đa để hiển thị
+                EllipsesFormat = "&#8230;", // Định dạng dấu ...
+                LinkToPreviousPageFormat = "<",
+                LinkToNextPageFormat = ">",
+                LinkToFirstPageFormat = "<<", // Định dạng liên kết đến trang đầu tiên
+                LinkToLastPageFormat = ">>", // Định dạng liên kết đến trang cuối cùng
+            })
+    </div>
+
 </div>
+<style>
+    #pages {
+        display: flex;
+        justify-content: center;
+    }
+</style>
