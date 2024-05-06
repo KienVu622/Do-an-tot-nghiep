@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using QLBQA.Models;
 
 namespace QLBQA.Areas.Admin.Controllers
@@ -16,11 +17,20 @@ namespace QLBQA.Areas.Admin.Controllers
         private QLBQA_DB db = new QLBQA_DB();
 
         // GET: Admin/Colors
-        public ActionResult Index(string errMsg)
+        public ActionResult Index(int? page)
         {
-      
-            return View(db.Colors.ToList());
+
+            var colors = db.Colors.Select(s => s);
+            colors = colors.OrderBy(s => s.ColorCode);
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(colors.ToPagedList(pageNumber, pageSize));
         }
+        //public ActionResult Index(string errMsg)
+        //{
+      
+        //    return View(db.Colors.ToList());
+        //}
 
         // GET: Admin/Colors/Details/5
         public ActionResult Details(int? id)

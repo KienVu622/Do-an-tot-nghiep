@@ -1,4 +1,6 @@
-﻿@model IEnumerable<QLBQA.Models.Color>
+﻿@model PagedList.IPagedList<QLBQA.Models.Color>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
@@ -87,7 +89,24 @@
         </tbody>
     </table>
 </div>
+<div id="pages">
+    <div id="pages">
+        @Html.PagedListPager(Model,
+             page => Url.Action("Index", "Colors", new { page, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions
+                {
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                MaximumPageNumbersToDisplay = 5,
+                EllipsesFormat = "&#8230;",
+                LinkToPreviousPageFormat = "<",
+                LinkToNextPageFormat = ">",
+                LinkToFirstPageFormat = "<<",
+                LinkToLastPageFormat = ">>",
+            })
+    </div>
 
+</div>
 <style>
     .circle {
         width: 20px;

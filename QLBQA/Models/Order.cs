@@ -39,6 +39,6 @@ namespace QLBQA.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
-        public virtual TransactStatu TransactStatu { get; set; }
+        public virtual TransactStatus TransactStatus { get; set; }
     }
 }

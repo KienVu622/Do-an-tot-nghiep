@@ -127,8 +127,8 @@
                 url: '@Url.Action("Edit", "Images")',
                 type: 'POST',
                 data: formData,
-                processData: false, // không xử lý dữ liệu
-                contentType: false, // không sử dụng contentType mặc định của jQuery
+                processData: false, 
+                contentType: false, 
                 success: function (result) {
                     console.log("Chỉnh sửa thành công");
                      window.location.href = '@Url.Action("Edit2", "ProductDetails")' + '?id=' + pID;

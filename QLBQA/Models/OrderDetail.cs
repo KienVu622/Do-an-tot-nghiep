@@ -25,5 +25,7 @@ namespace QLBQA.Models
         public DateTime? ShipDate { get; set; }
 
         public virtual Order Order { get; set; }
+
+       
     }
 }

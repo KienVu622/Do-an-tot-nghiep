@@ -30,7 +30,7 @@ namespace QLBQA.Models
         public virtual DbSet<Shipper> Shippers { get; set; }
         public virtual DbSet<Size> Sizes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<TransactStatu> TransactStatus { get; set; }
+        public virtual DbSet<TransactStatus> TransactStatus { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -94,5 +94,9 @@ namespace QLBQA.Models
                 .WithRequired(e => e.Size)
                 .WillCascadeOnDelete(false);
         }
+
+        public System.Data.Entity.DbSet<QLBQA.Models.RegisterModel> RegisterModels { get; set; }
+
+        public System.Data.Entity.DbSet<QLBQA.Models.LoginModel> LoginModels { get; set; }
     }
 }

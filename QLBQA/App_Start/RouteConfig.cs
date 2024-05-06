@@ -19,6 +19,12 @@ namespace QLBQA
                namespaces: new[] { "QLBQA.Controllers" }
            );
             routes.MapRoute(
+            name: "Page",
+             url: "{controller}/{action}/{alias}",
+             defaults: new { controller = "Page", action = "Details", alias = UrlParameter.Optional },
+            namespaces: new[] { "QLBQA.Controllers" }
+            );
+            routes.MapRoute(
             name: "ProductDetails_Edit",
             url: "Admin/ProductDetails/Edit/{ids}",
             defaults: new { controller = "ProductDetails", action = "Edit", ids = UrlParameter.Optional },

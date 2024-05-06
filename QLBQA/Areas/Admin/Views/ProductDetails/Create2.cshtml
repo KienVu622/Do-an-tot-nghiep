@@ -99,7 +99,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="button" value="Thêm và tiếp tục" class="btn btn-success" onclick="addProductDetails()" />
-                <a class="btn btn-danger" href="@Url.Action("Index", "Products")" title="Back">Hủy</a>
+                <a id="cancelLink" class="btn btn-danger" href="@Url.Action("CancelCreate", "ProductDetails")" title="Back">Hủy</a>
             </div>
         </div>
     </div>
@@ -223,7 +223,13 @@
         // Hiển thị giá trị trên HTML
         document.getElementById("productID").innerText = productId;
         document.getElementById("productName").innerText = productName;
+        var cancelLink = document.getElementById("cancelLink");
 
+        var currentHref = cancelLink.getAttribute("href");
+
+        var newHref = currentHref + "/"+productId;
+
+        cancelLink.setAttribute("href", newHref);
     };
 </script>
 

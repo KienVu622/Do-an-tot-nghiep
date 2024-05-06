@@ -39,7 +39,7 @@ namespace QLBQA.Areas.Admin.Controllers
         // GET: Admin/ProductDetails/Create
         public ActionResult Create()
         {
-            ViewBag.Colors = db.Colors;
+            ViewBag.Colors = db.Colors.OrderBy(c => c.ColorCode);
             ViewBag.Products = new SelectList(db.Products, "ProductID", "ProductName");
             ViewBag.Sizes = db.Sizes;
             ViewBag.ProductID = new SelectList(db.Products, "ProductID", "ProductName");
@@ -191,13 +191,14 @@ namespace QLBQA.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-  
+            
             ProductDetail productDetail = db.ProductDetails.Find(id);
+            var pID = productDetail.ProductID;
             db.ProductDetails.Remove(productDetail);
             db.SaveChanges();
             //TempData["ProductId"] = productDetail.Product.ProductID;
             //TempData["ProductName"] = productDetail.Product.ProductName;
-            return RedirectToAction("Edit2", new { id = productDetail.ProductID });
+            return RedirectToAction("Edit2", new { id  = pID});
         }
 
         protected override void Dispose(bool disposing)
@@ -218,13 +219,14 @@ namespace QLBQA.Areas.Admin.Controllers
 
             // Lấy danh sách chi tiết sản phẩm với ProductID tương ứng
             var productDetails = db.ProductDetails.Where(pd => pd.ProductID == id).ToList();
-
-            // Kiểm tra xem danh sách có trống không
-            if (productDetails == null || productDetails.Count == 0)
-            {
-                // Nếu danh sách trống, trả về trạng thái HttpNotFound
-                return HttpNotFound();
-            }
+            TempData["ProductId"] = id;
+            TempData["ProductName"] = db.Products.Where(pd => pd.ProductID == id).Select(p=>p.ProductName).FirstOrDefault();
+            //// Kiểm tra xem danh sách có trống không
+            //if (productDetails == null || productDetails.Count == 0)
+            //{
+            //    // Nếu danh sách trống, trả về trạng thái HttpNotFound
+            //    return HttpNotFound();
+            //}
 
             // Nếu danh sách không trống, trả về view "Edit2" với danh sách chi tiết sản phẩm
             return View(productDetails);
@@ -257,7 +259,7 @@ namespace QLBQA.Areas.Admin.Controllers
         public ActionResult Create2()
         {   
 
-            ViewBag.Colors = db.Colors;
+            ViewBag.Colors = db.Colors.OrderBy(c => c.ColorCode);
             ViewBag.Products = new SelectList(db.Products, "ProductID", "ProductName");
             ViewBag.Sizes = db.Sizes;
             ViewBag.ProductID = new SelectList(db.Products, "ProductID", "ProductName");
@@ -273,6 +275,7 @@ namespace QLBQA.Areas.Admin.Controllers
             {
                 try
                 {
+                    
                     foreach (var productDetail in productDetails)
                     {
                         // Kiểm tra xem có bản ghi trùng lặp không
@@ -334,7 +337,8 @@ namespace QLBQA.Areas.Admin.Controllers
             Product product = db.Products.Find(id);
             TempData["ProductId"] = id;
             TempData["ProductName"] = product.ProductName;
-            return RedirectToAction("Edit2",id);
+            return RedirectToAction("Edit2", new { id = id});
+
         }
 
     }

@@ -12,7 +12,8 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+@Html.Hidden("Id", TempData["ProductId"])
+@Html.Hidden("Name", TempData["ProductName"])
 @using (Html.BeginForm("Edit2", "ProductDetails", FormMethod.Post, new { id = "editForm" }))
 {
     @Html.AntiForgeryToken()
@@ -26,25 +27,25 @@
         </tr>
         @for (int i = 0; i < Model.Count; i++)
         {
-    <tr>
+            <tr>
 
-        <td>@Html.DisplayFor(modelItem => Model[i].Product.ProductName)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].Product.ProductName)</td>
 
-        <td>@Html.DisplayFor(modelItem => Model[i].Color.ColorName)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].Color.ColorName)</td>
 
-        <td>@Html.DisplayFor(modelItem => Model[i].Size.SizeName)</td>
-        <td>
-            <input type="hidden" id="productId_@i" value="@Model[i].Product.ProductID" />
-            <input type="hidden" id="productDetailId_@i" value="@Model[i].ProductDetailID" />
-            <input type="hidden" id="colorId_@i" value="@Model[i].ColorID" />
-            <input type="hidden" id="sizeId_@i" value="@Model[i].SizeID" />
-            <input type="number" id="quantity_@i" value="@Model[i].Quantity" />
+                <td>@Html.DisplayFor(modelItem => Model[i].Size.SizeName)</td>
+                <td>
+                    <input type="hidden" id="productId_@i" value="@Model[i].Product.ProductID" />
+                    <input type="hidden" id="productDetailId_@i" value="@Model[i].ProductDetailID" />
+                    <input type="hidden" id="colorId_@i" value="@Model[i].ColorID" />
+                    <input type="hidden" id="sizeId_@i" value="@Model[i].SizeID" />
+                    <input type="number" id="quantity_@i" value="@Model[i].Quantity" />
 
-        </td>
-        <td>
-            <a class="btn btn-warning m-r-5" href="@Url.Action("Delete", "ProductDetails", new { id = Model[i].ProductDetailID })" title="Delete">Xóa</a>
-        </td>
-    </tr>
+                </td>
+                <td>
+                    <a class="btn btn-warning m-r-5" href="@Url.Action("Delete", "ProductDetails", new { id = Model[i].ProductDetailID })" title="Delete">Xóa</a>
+                </td>
+            </tr>
 
         }
     </table>
@@ -106,13 +107,22 @@
 
     });
 });
-window.onload = function () {
-        // Lấy giá trị từ Local Storage khi trang được tải
-        var productId = localStorage.getItem("productId");
-        var productName = localStorage.getItem("productName");
-          localStorage.setItem("productId", productId);
-             localStorage.setItem("productName", productName);
-        
-    };
+//window.onload = function () {
+//        // Lấy giá trị từ Local Storage khi trang được tải
+//        var productId = localStorage.getItem("productId");
+//        var productName = localStorage.getItem("productName");
+//          localStorage.setItem("productId", productId);
+//             localStorage.setItem("productName", productName);
+
+//    };
+
+
+    $("#goToCreateBtn").click(function () {
+        // Lấy giá trị của productId và productName từ các thẻ HTML
+        var productId = $("#Id").val();
+        var productName = $("#Name").val();
+        localStorage.setItem("productId", productId);
+        localStorage.setItem("productName", productName);
+    });
 </script>
 
